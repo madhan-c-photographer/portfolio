@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADHAN C</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00B8D4;
+            --secondary: #0A1929;
+            --accent: #00B8D4;
+            --text-primary: #E0E0E0;
+            --text-secondary: #A0A0A0;
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --bg-tertiary: #21262D;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--secondary) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Home Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin-top: 20px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .home-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+
+        .home-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+            padding: 1rem;
+        }
+
+        .home-photo {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-frame {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-placeholder {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-placeholder:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .wave-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: transparent;
+            z-index: 1;
+            animation: waveAnimation 3s ease-in-out infinite;
+            box-shadow:
+                inset 0 0 20px rgba(0, 212, 255, 0.3),
+                inset 0 0 40px rgba(0, 212, 255, 0.2),
+                0 0 30px rgba(0, 212, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        @keyframes waveAnimation {
+            0% {
+                transform: scale(1);
+                box-shadow:
+                    inset 0 0 20px rgba(0, 212, 255, 0.3),
+                    inset 0 0 40px rgba(0, 212, 255, 0.2),
+                    0 0 30px rgba(0, 212, 255, 0.1);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow:
+                    inset 0 0 30px rgba(0, 212, 255, 0.4),
+                    inset 0 0 50px rgba(0, 212, 255, 0.3),
+                    0 0 40px rgba(0, 212, 255, 0.2);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    inset 0 0 20px rgba(0, 212, 255, 0.3),
+                    inset 0 0 40px rgba(0, 212, 255, 0.2),
+                    0 0 30px rgba(0, 212, 255, 0.1);
+            }
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        h3 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 800;
+            margin: 1rem 0;
+            color: var(--primary);
+            line-height: 1.2;
+            animation: slideInDown 1s ease-out 0.2s both;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin: 1.5rem 0 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 0.9rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(1, 109, 148, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(1, 109, 148, 0.5);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            background: var(--accent);
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 1s;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        #about {
+            background: linear-gradient(135deg, rgba(10, 25, 41, 0.5) 0%, rgba(255, 0, 110, 0.02) 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Education Section */
+        #education {
+            background: linear-gradient(135deg, rgba(33, 38, 45, 0.5) 0%, rgba(10, 25, 41, 0.5) 100%);
+        }
+
+        .education-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .education-card {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .education-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .education-card:hover::before {
+            left: 100%;
+        }
+
+        .education-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .education-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .education-year {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.02) 0%, rgba(255, 0, 110, 0.02) 100%);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .skill-percentage {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 0%;
+        }
+
+        /* Photography Section */
+        #photography {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.02) 0%, rgba(10, 25, 41, 0.5) 100%);
+        }
+
+        /* Education & Skills Section */
+        #education-skills {
+            background: linear-gradient(135deg, rgba(33, 38, 45, 0.5) 0%, rgba(10, 25, 41, 0.5) 100%);
+        }
+
+        .education-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .combined-table-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .section-subheading {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .combined-table {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .combined-table-row {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .combined-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .combined-table-row:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .combined-table-header {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .combined-table-content {
+            padding: 1.5rem;
+        }
+
+        .education-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            margin-top: 0.25rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resume-section {
+            padding: 1rem 0;
+        }
+
+        .resume-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .resume-section .btn {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .skills-content {
+            padding: 2rem;
+        }
+
+        .education-highlight {
+            background: var(--bg-tertiary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .education-highlight:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .education-highlight h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+
+        .skill-group {
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-group:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-group h4 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-list li:hover {
+            color: var(--primary);
+            padding-left: 0.5rem;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            group: "gallery";
+            transition: all 0.4s ease;
+            background: var(--bg-tertiary);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-text {
+            color: var(--primary);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .video-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+
+
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .video-poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        
+        .video-card:hover .video-poster {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+        
+        .view-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+        
+        .video-card:hover .view-overlay {
+            opacity: 1;
+        }
+        
+        .view-text {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .video-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .video-placeholder .play-icon {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .play-icon {
+            position: absolute;
+            font-size: 3rem;
+            color: var(--primary);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, rgba(10, 25, 41, 0.5) 0%, rgba(255, 0, 110, 0.02) 100%);
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: var(--secondary);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(1, 109, 148, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .modal-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-body {
+            width: 100%;
+            height: calc(100% - 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+        }
+
+        .modal-body img,
+        .modal-body video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: white;
+            text-decoration: none;
+        }
+
+        .download-btn-modal {
+            background: var(--primary);
+            color: var(--secondary);
+            border: none;
+            border-radius: 4px;
+            padding: 5px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 2001;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .download-btn-modal:hover {
+            background: #00a0c0;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--secondary);
+                padding: 2rem;
+                display: none;
+            }
+
+            .home-main {
+                flex-direction: column;
+                gap: 3rem;
+                padding: 1rem 0;
+            }
+
+            .home-text {
+                text-align: center;
+            }
+
+            .photo-frame {
+                width: 270px;
+                height: 270px;
+            }
+
+            .photo-placeholder {
+                width: 250px;
+                height: 250px;
+            }
+
+            .education-details,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .combined-table-header {
+                font-size: 1.1rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .photography-skills {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MADHAN C</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#education-skills" class="nav-link">Education & Skills</a></li>
+            <li><a href="#photography" class="nav-link">Photography</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="home-content">
+            <div class="home-main">
+                <div class="home-text">
+                    <h3>Photographer &<br>Creative Visual Artist</h3>
+                    <p class="subtitle">Capturing moments, crafting visual stories with professional photography skills
+                        and creative composition techniques</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary"
+                            onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Book a
+                            Photoshoot</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('photography').scrollIntoView({behavior: 'smooth'})">View My Work</button>
+                        <a href="Madhan-resume.pdf" class="btn btn-secondary" download>Download Resume</a>
+                    </div>
+                </div>
+                <div class="home-photo">
+                    <div class="photo-frame">
+                        <div class="photo-placeholder"><img src="madhan.jpeg" alt="MADHAN C"
+                                style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></div>
+                        <div class="wave-animation"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="scroll-animation">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Passionate photographer creating visual stories</p>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Who I Am</h3>
+                <p>I'm a graduate who completed my B.Com degree at Dr. N.G.P Arts and Science College, Coimbatore from
+                    2022-2025, while developing my passion for visual storytelling and creative composition.</p>
+                <p>My academic journey has provided me with a strong foundation in business studies, complemented by my
+                    exploration of photography as a creative outlet. I specialize in portrait and landscape photography,
+                    using both natural and artificial lighting to create compelling visuals.</p>
+                <p>Beyond my formal education, I'm deeply committed to the art of photography and visual arts,
+                    constantly refining my skills through workshops and hands-on practice to create inspiring visual
+                    stories.</p>
+            </div>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Photos Captured</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Photography Projects</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Workshops Attended</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Skills Section -->
+    <section id="education-skills" class="scroll-animation">
+        <h2 class="section-title">Education & Skills</h2>
+        <p class="section-subtitle">My academic background and photography expertise</p>
+
+        <div class="education-container">
+            <!-- Combined Education & Skills Table -->
+            <div class="combined-table-container">
+                <h3 class="section-subheading">Academic & Professional Qualifications</h3>
+                <div class="combined-table">
+                    <!-- Education Row -->
+                    <div class="combined-table-row">
+                        <div class="combined-table-header">Education</div>
+                        <div class="combined-table-content">
+                            <div class="education-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Qualification:</span>
+                                    <span class="detail-value">B.Com (Completed)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Institution:</span>
+                                    <span class="detail-value">Dr. N.G.P Arts and Science College, Coimbatore</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">University:</span>
+                                    <span class="detail-value">Bharathiar University</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Year of Passing:</span>
+                                    <span class="detail-value">2022-2025</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Mark (%):</span>
+                                    <span class="detail-value">65%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Row -->
+                    <div class="combined-table-row">
+                        <div class="combined-table-header">Photography Skills</div>
+                        <div class="combined-table-content">
+                            <div class="skills-grid">
+                                <div class="skill-category">
+                                    <h4>Technical Skills</h4>
+                                    <ul class="skill-list">
+                                        <li>DSLR & Mirrorless Camera Operation</li>
+                                        <li>Composition & Framing Techniques</li>
+                                        <li>Natural & Artificial Lighting</li>
+                                        <li>Portrait & Landscape Photography</li>
+                                    </ul>
+                                </div>
+                                <div class="skill-category">
+                                    <h4>Tools & Software</h4>
+                                    <ul class="skill-list">
+                                        <li>Canon EOS R Series / Nikon Z Series</li>
+                                        <li>Adobe Lightroom Classic</li>
+                                        <li>Adobe Photoshop CC</li>
+                                        <li>Capture One Pro</li>
+                                    </ul>
+                                </div>
+                                <div class="skill-category">
+                                    <h4>Soft Skills</h4>
+                                    <ul class="skill-list">
+                                        <li>Creative Problem Solving</li>
+                                        <li>Time Management & Deadlines</li>
+                                        <li>Client Communication</li>
+                                        <li>Attention to Detail</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photography & Videos Section -->
+    <section id="photography" class="scroll-animation">
+        <h2 class="section-title">Visual Portfolio</h2>
+        <p class="section-subtitle">Capturing moments through lens and creativity</p>
+
+        <h3 style="color: var(--primary); margin-bottom: 2rem; text-align: center;">Photography Collection</h3>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openMediaModal('madhan1.jpeg', 'Environmental Photography', 'image')">
+                <img src="madhan1.jpeg" alt="Portrait Photography" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Environmental Photography</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openMediaModal('madhan2.jpeg', 'Nature Photography', 'image')">
+                <img src="madhan2.jpeg" alt="Landscape Photography" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Nature Photography</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openMediaModal('madhan3.jpeg', 'Object Photography', 'image')">
+                <img src="madhan3.jpeg" alt="Street Photography" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Object Photography</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openMediaModal('madhan4.jpeg', 'Automobile Photography', 'image')">
+                <img src="madhan4.jpeg" alt="Nature Photography" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Automobile Photography</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="color: var(--primary); margin-bottom: 2rem; text-align: center;">Cinematic Works</h3>
+        <div class="video-container">
+            <div class="video-card" onclick="openMediaModal('madhanvideo1.mp4', 'Driven by Design', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo1-poster.jpg" alt="Driven by Design" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+1'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Driven by Design</h4>
+                    <p>Clean visuals celebrating form, flow, and detail</p>
+                </div>
+            </div>
+            <div class="video-card" onclick="openMediaModal('madhanvideo2.mp4', 'Two-Wheel Poetry', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo2-poster.jpg" alt="Two-Wheel Poetry" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+2'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Two-Wheel Poetry</h4>
+                    <p>A quiet blend of motion, metal, and mood</p>
+                </div>
+            </div>
+            <div class="video-card" onclick="openMediaModal('madhanvideo3.mp4', 'Sacred Stillness', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo3-poster.jpg" alt="Sacred Stillness" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+3'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Sacred Stillness</h4>
+                    <p>A moment of peace within ancient walls</p>
+                </div>
+            </div>
+            <div class="video-card" onclick="openMediaModal('madhanvideo4.mp4', 'Between Earth & Engine', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo4-poster.jpg" alt="Between Earth & Engine" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+4'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Between Earth & Engine</h4>
+                    <p>A cinematic journey where the rhythm of the engine meets nature's quiet soul</p>
+                </div>
+            </div>
+            <div class="video-card" onclick="openMediaModal('madhanvideo5.mp4', 'Urban Rhythms', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo5-poster.jpg" alt="Urban Rhythms" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+5'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Urban Rhythms</h4>
+                    <p>Capturing the pulse of city life through motion and light</p>
+                </div>
+            </div>
+            <div class="video-card" onclick="openMediaModal('madhanvideo6.mp4', 'Golden Hour Symphony', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo6-poster.jpg" alt="Golden Hour Symphony" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+6'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Golden Hour Symphony</h4>
+                    <p>Warm light painting stories in the fleeting magic of sunset</p>
+                </div>
+            </div>
+            <div class="video-card" onclick="openMediaModal('madhanvideo7.mp4', 'Motion & Momentum', 'video')">
+                <div class="video-placeholder">
+                    <img src="madhanvideo7-poster.jpg" alt="Motion & Momentum" class="video-poster" onerror="this.src='https://via.placeholder.com/300x200/000000/00B8D4?text=Video+7'">
+                    <div class="view-overlay">
+                        <div class="view-text">View Video</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h4>Motion & Momentum</h4>
+                    <p>Dynamic movement captured in fluid cinematic sequences</p>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="scroll-animation">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Let's capture your special moments</p>
+        <div class="contact-container">
+            <form class="contact-form" action="mailto:madhan0137@gmail.com" method="post" enctype="text/plain" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Service Type</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Wedding, Portrait, Event, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="message">Event Details</label>
+                    <textarea id="message" name="message" required
+                        placeholder="Tell me about your event, date, location, and any special requirements..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://youtube.com/@madhanchinnasamy-u4o?si=K3LzCZO4PxZpDpp1" title="YouTube" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                </svg>
+            </a>
+            <a href="https://www.instagram.com/_.iammadhan._?igsh=MTNmeDFieDJxNGgxeA%3D%3D&utm_source=qr" title="Instagram" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor"
+                        stroke-width="2" />
+                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="currentColor"
+                        stroke-width="2" />
+                    <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
+                </svg>
+            </a>
+            <a href="mailto:madhan0137@gmail.com" title="Email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
+        </div>
+        <p>&copy; 2025 Photography Portfolio. All rights reserved.</p>
+    </footer>
+
+    <!-- Unified Modal for Media Viewing -->
+    <div id="mediaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="mediaTitle" class="modal-title">Media Title</h3>
+                <div>
+                    <button id="downloadBtn" class="download-btn-modal">Download</button>
+                    <span id="closeModal" class="close">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Enlarged view" style="display: none;">
+                <video id="modalVideo" controls style="display: none; width: 100%; height: 100%;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinksContainer = document.getElementById('navLinks');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                navLinksContainer.classList.remove('active');
+            });
+        });
+
+        menuToggle.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('active');
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Animate skill bars
+                    if (entry.target.id === 'skills') {
+                        const skillFills = entry.target.querySelectorAll('.skill-fill');
+                        skillFills.forEach(fill => {
+                            const width = fill.getAttribute('data-width');
+                            fill.style.width = width + '%';
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animation').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form handling
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Show success message
+            alert(`Thank you, ${name}! I'll get back to you soon.`);
+            form.reset();
+        }
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Gallery hover effect
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'scale(1.05) translateY(-5px)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'scale(1) translateY(0)';
+            });
+        });
+
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show the selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to the clicked button
+            event.target.classList.add('active');
+        }
+
+        // Modal functionality for both images and videos
+        function openMediaModal(src, title, type) {
+            const modal = document.getElementById('mediaModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const mediaTitle = document.getElementById('mediaTitle');
+            
+            // Set the title
+            mediaTitle.textContent = title;
+            
+            // Handle based on media type
+            if (type === 'image') {
+                modalImage.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modalImage.src = src;
+                // Store current source for download
+                window.currentMediaSrc = src;
+                window.currentMediaType = 'image';
+            } else if (type === 'video') {
+                modalImage.style.display = 'none';
+                modalVideo.style.display = 'block';
+                const sourceElement = modalVideo.querySelector('source');
+                sourceElement.src = src;
+                modalVideo.load();
+                // Store current source for download
+                window.currentMediaSrc = src;
+                window.currentMediaType = 'video';
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeMediaModal() {
+            const modal = document.getElementById('mediaModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            // Pause video if it's playing
+            if (window.currentMediaType === 'video') {
+                modalVideo.pause();
+            }
+            
+            modal.style.display = 'none';
+        }
+
+        // Download media
+        function downloadMedia() {
+            if (window.currentMediaSrc) {
+                const link = document.createElement('a');
+                link.href = window.currentMediaSrc;
+                link.download = window.currentMediaSrc.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('mediaModal');
+            if (event.target == modal) {
+                closeMediaModal();
+            }
+        }
+
+        // Add event listeners for modal controls
+        document.getElementById('closeModal').addEventListener('click', closeMediaModal);
+        document.getElementById('downloadBtn').addEventListener('click', downloadMedia);
+    </script>
+</body>
+
+</html>
